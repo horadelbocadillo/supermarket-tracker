@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La Compra</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-6 font-sans">
+  <h1 class="text-2xl font-bold mb-6">🛒 La Compra</h1>
+  {% for supermarket, products in grouped.items() %}
+  <div class="mb-8">
+    <h2 class="text-lg font-semibold text-gray-500 uppercase tracking-wide mb-2">
+      {{ supermarket.replace('_', ' ').title() }}
+    </h2>
+    <div class="bg-white rounded-lg shadow divide-y">
+      {% for p in products %}
+      <a href="/product/{{ p.id }}" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50">
+        <span class="text-gray-800">{{ p.name }}</span>
+        <span class="flex items-center gap-3">
+          {% if p.stale %}
+          <span class="text-xs text-amber-500">⚠️ últ. dato: {{ p.last_date[:10] }}</span>
+          {% endif %}
+          {% if p.price %}
+          <span class="font-mono font-medium">{{ "%.2f"|format(p.price) }} €</span>
+          {% else %}
+          <span class="text-gray-400 text-sm">sin datos</span>
+          {% endif %}
+          {% if p.offer %}
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">OFERTA</span>
+          {% endif %}
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ product.name }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 p-6 font-sans">
+  <a href="/" class="text-blue-500 text-sm mb-4 inline-block">← Volver</a>
+  <h1 class="text-xl font-bold mb-1">{{ product.name }}</h1>
+  <p class="text-gray-500 mb-6">{{ product.supermarket.replace('_', ' ').title() }}</p>
+  <div class="bg-white rounded-lg shadow p-4 max-w-2xl">
+    <canvas id="chart"></canvas>
+  </div>
+  <script>
+    const labels = {{ history | map(attribute='scraped_at') | map('truncate', 10, False, '') | list | tojson }};
+    const prices = {{ history | map(attribute='price') | list | tojson }};
+    const median = {{ median or 'null' }};
+    new Chart(document.getElementById('chart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Precio', data: prices, borderColor: '#3b82f6', tension: 0.3, pointRadius: 3 },
+          { label: 'Mediana', data: Array(labels.length).fill(median),
+            borderColor: '#f59e0b', borderDash: [5,5], pointRadius: 0 }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'top' } } }
+    });
+  </script>
+</body>
+</html>
