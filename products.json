@@ -1,0 +1,7 @@
+[
+  {"supermarket": "mercadona", "name": "Leche Hacendado 1L", "url": "https://tienda.mercadona.es/product/..."},
+  {"supermarket": "carrefour",  "name": "Producto X",         "url": "https://www.carrefour.es/..."},
+  {"supermarket": "lidl",       "name": "Producto Y",         "url": "https://www.lidl.es/..."},
+  {"supermarket": "el_corte_ingles", "name": "Producto Z",   "url": "https://www.elcorteingles.es/..."},
+  {"supermarket": "el_jamon",   "name": "Producto W",         "url": "https://www.eljamon.com/..."}
+]
