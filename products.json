@@ -1,7 +1,32 @@
 [
-  {"supermarket": "mercadona", "name": "Leche Hacendado 1L", "url": "https://tienda.mercadona.es/product/..."},
-  {"supermarket": "carrefour",  "name": "Producto X",         "url": "https://www.carrefour.es/..."},
-  {"supermarket": "lidl",       "name": "Producto Y",         "url": "https://www.lidl.es/..."},
-  {"supermarket": "el_corte_ingles", "name": "Producto Z",   "url": "https://www.elcorteingles.es/..."},
-  {"supermarket": "el_jamon",   "name": "Producto W",         "url": "https://www.eljamon.com/..."}
+  {"supermarket": "mercadona", "name": "Pistachos", "url": "https://tienda.mercadona.es/product/34262/pistacho-natural-hacendado-pelado-paquete"},
+  {"supermarket": "mercadona", "name": "Almendras", "url": "https://tienda.mercadona.es/product/34865/almendra-natural-hacendado-paquete"},
+  {"supermarket": "mercadona", "name": "Pipas de calabaza", "url": "https://tienda.mercadona.es/product/34188/pipas-calabaza-natural-hacendado-peladas-paquete"},
+  {"supermarket": "mercadona", "name": "Pipas de girasol naturales", "url": "https://tienda.mercadona.es/product/34193/pipas-girasol-naturales-hacendado-peladas-paquete"},
+  {"supermarket": "mercadona", "name": "Anacardos naturales", "url": "https://tienda.mercadona.es/product/23365/anacardo-natural-hacendado-paquete"},
+  {"supermarket": "mercadona", "name": "Anacardos fritos", "url": "https://tienda.mercadona.es/product/34027/anacardo-frito-salado-hacendado-paquete"},
+  {"supermarket": "mercadona", "name": "Pipas de girasol fritas", "url": "https://tienda.mercadona.es/product/34145/pipas-girasol-fritas-hacendado-peladas-paquete"},
+  {"supermarket": "mercadona", "name": "Canonigos y rúcula", "url": "https://tienda.mercadona.es/product/69697/ensalada-mezcla-duo-canonigos-rucula-paquete"},
+  {"supermarket": "mercadona", "name": "Arándanos congelados", "url": "https://tienda.mercadona.es/product/61093/arandanos-enteros-hacendado-ultracongelados-paquete"},
+  {"supermarket": "mercadona", "name": "Yogurt griego de fresa", "url": "https://tienda.mercadona.es/product/20504/yogur-griego-sabor-fresa-hacendado-sin-trozos-pack-6"},
+  {"supermarket": "mercadona", "name": "Postre de soja de chocolate", "url": "https://tienda.mercadona.es/product/35466/postre-soja-hacendado-sabor-chocolate-pack-4"},
+
+  {"supermarket": "carrefour", "name": "Yogurt griego de fresa", "url": "https://www.carrefour.es/supermercado/yogur-griego-de-fresa-carrefour-extra-sin-gluten-pack-de-6-unidades-de-125-g/R-VC4AECOMM-628189/p"},
+  {"supermarket": "carrefour", "name": "Canonigos", "url": "https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p"},
+  {"supermarket": "carrefour", "name": "Mascarilla del pelo de coco", "url": "https://www.carrefour.es/supermercado/mascarilla-capilar-aceite-de-coco-carrefour-soft-300-ml/R-VC4AECOMM-430670/p"},
+  {"supermarket": "carrefour", "name": "Pastillas de jabón", "url": "https://www.carrefour.es/supermercado/jabon-de-cara-y-cuerpo-en-pastilla-pieles-sensibles-pure-carrefour-soft-100-g/R-VC4AECOMM-719286/p"},
+  {"supermarket": "carrefour", "name": "Platanos", "url": "https://www.carrefour.es/supermercado/platano-de-canarias-igp-carrefour-900g-aprox/R-VC4AECOMM-779025/p"},
+  {"supermarket": "carrefour", "name": "Guacamole", "url": "https://www.carrefour.es/supermercado/guacamole-carrefour-200-g/R-prod1160715/p"},
+
+  {"supermarket": "el_corte_ingles", "name": "Alcachofas congeladas", "url": "https://www.elcorteingles.es/supermercado/B001018915300109-verleal-corazones-de-alcachofas-baby-bolsa-300-g/"},
+  {"supermarket": "el_corte_ingles", "name": "Guisantes congelados", "url": "https://www.elcorteingles.es/supermercado/B001018916700273-verleal-guisante-fino-bolsa-400-g/"},
+  {"supermarket": "el_corte_ingles", "name": "Judias verdes congeladas", "url": "https://www.elcorteingles.es/supermercado/B001018917200281-verleal-judia-verde-extrafina-bolsa-400-g/"},
+  {"supermarket": "el_corte_ingles", "name": "Setas congeladas", "url": "https://www.elcorteingles.es/supermercado/B001018922801131-verleal-mezcla-de-setas-bolsa-400-g/"},
+  {"supermarket": "el_corte_ingles", "name": "Arandanos congelados", "url": "https://www.elcorteingles.es/supermercado/B001018923300422-la-cuerva-arandanos-cultivados-ideales-para-postres-bolsa-300-g/"},
+  {"supermarket": "el_corte_ingles", "name": "Espinacas congeladas", "url": "https://www.elcorteingles.es/supermercado/B001018919100133-el-corte-ingles-espinacas-cortadas-2-raciones-de-200g-bolsa-400-g/"},
+  {"supermarket": "el_corte_ingles", "name": "Huevos gallegos", "url": "https://www.elcorteingles.es/supermercado/B001018840100616-pazo-vilane-huevos-camperos-morenos-estuche-12-unidades-calibres-diferentes/"},
+
+  {"supermarket": "el_jamon", "name": "Detergente de la lavadora", "url": "https://www.supermercadoseljamon.com/detalle/-/Producto/detergente-liquido-gel-activo-42lav/40008400"},
+  {"supermarket": "el_jamon", "name": "Desinfectante de la ropa", "url": "https://www.supermercadoseljamon.com/detalle/-/Producto/desinfectante-textil-720ml/40160141"},
+  {"supermarket": "el_jamon", "name": "Lejía wc", "url": "https://www.supermercadoseljamon.com/detalle/-/Producto/limpiador-gel-wc-con-lejia-1l/40100224"}
 ]

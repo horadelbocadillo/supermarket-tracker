@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-04-06T13:47:31.327601+00:00",
+    "command": "cd \"/Users/guiomar.romero/Documents/la compra/supermarket-tracker\" && source .venv/bin/activate && pytest tests/test_db.py -v 2>&1 | tail -10",
+    "result": "unknown"
+  },
+  {
+    "timestamp": "2026-04-06T13:49:18.380659+00:00",
+    "command": "cd \"/Users/guiomar.romero/Documents/la compra/supermarket-tracker\" && source .venv/bin/activate && pytest tests/test_db.py -v 2>&1",
+    "result": "unknown"
+  },
+  {
+    "timestamp": "2026-04-06T13:54:42.419725+00:00",
+    "command": "cd \"/Users/guiomar.romero/Documents/la compra/supermarket-tracker\" && source .venv/bin/activate && pytest tests/test_pricing.py -v 2>&1 | tail -5",
+    "result": "unknown"
+  },
+  {
+    "timestamp": "2026-04-06T13:54:52.938634+00:00",
+    "command": "cd \"/Users/guiomar.romero/Documents/la compra/supermarket-tracker\" && source .venv/bin/activate && pytest tests/test_pricing.py -v 2>&1",
+    "result": "unknown"
+  },
+  {
+    "timestamp": "2026-04-06T13:58:23.402551+00:00",
+    "command": "cd \"/Users/guiomar.romero/Documents/la compra/supermarket-tracker\" && source .venv/bin/activate && pytest tests/test_scrapers.py -v 2>&1",
+    "result": "unknown"
+  },
+  {
+    "timestamp": "2026-04-06T14:19:28.262157+00:00",
+    "command": "cd \"/Users/guiomar.romero/Documents/la compra/supermarket-tracker\" && source .venv/bin/activate && pytest -v 2>&1",
+    "result": "unknown"
+  }
+]

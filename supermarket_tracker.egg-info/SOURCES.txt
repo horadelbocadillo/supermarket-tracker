@@ -1,0 +1,6 @@
+pyproject.toml
+supermarket_tracker.egg-info/PKG-INFO
+supermarket_tracker.egg-info/SOURCES.txt
+supermarket_tracker.egg-info/dependency_links.txt
+supermarket_tracker.egg-info/requires.txt
+supermarket_tracker.egg-info/top_level.txt
