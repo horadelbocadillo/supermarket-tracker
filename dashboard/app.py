@@ -29,6 +29,42 @@ def index(request: Request):
     grouped = {k: list(v) for k, v in groupby(items, key=lambda x: x["supermarket"])}
     return templates.TemplateResponse("index.html", {"request": request, "grouped": grouped})
 
+@app.get("/debug/scrape-test")
+def debug_scrape_test():
+    """Endpoint temporal para debuggear scrapers en Railway."""
+    import httpx
+    results = {}
+
+    # Test 1: Mercadona API
+    try:
+        url = "https://tienda.mercadona.es/api/products/34262/"
+        headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+        r = httpx.get(url, headers=headers, timeout=10)
+        results["mercadona"] = {"status": r.status_code, "body": r.text[:200]}
+    except Exception as e:
+        results["mercadona"] = {"error": str(e)}
+
+    # Test 2: Carrefour con Playwright
+    try:
+        from scrapers.carrefour import scrape as carrefour_scrape
+        url = "https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p"
+        result = carrefour_scrape(url)
+        results["carrefour"] = {"price": result.price, "available": result.available}
+    except Exception as e:
+        results["carrefour"] = {"error": str(e)}
+
+    # Test 3: El Corte Inglés con Playwright
+    try:
+        from scrapers.el_corte_ingles import scrape as eci_scrape
+        url = "https://www.elcorteingles.es/supermercado/B001018915300109-verleal-corazones-de-alcachofas-baby-bolsa-300-g/"
+        result = eci_scrape(url)
+        results["el_corte_ingles"] = {"price": result.price, "available": result.available}
+    except Exception as e:
+        results["el_corte_ingles"] = {"error": str(e)}
+
+    return results
+
+
 @app.get("/product/{product_id}", response_class=HTMLResponse)
 def detail(request: Request, product_id: int):
     products = get_all_products()
