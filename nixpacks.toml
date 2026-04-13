@@ -1,0 +1,5 @@
+[phases.setup]
+nixPkgs = ["firefox"]
+
+[phases.install]
+cmds = ["pip install -e .", "playwright install firefox"]

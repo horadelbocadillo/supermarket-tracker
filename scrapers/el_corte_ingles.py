@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 from scrapers.base import ScrapeResult
 
 def scrape(url: str) -> ScrapeResult:
-    """Scraper para El Corte Inglés usando Firefox headless con config especial."""
+    """Scraper para El Corte Inglés usando Firefox headless."""
     time.sleep(random.uniform(2, 4))
     try:
         with sync_playwright() as p:

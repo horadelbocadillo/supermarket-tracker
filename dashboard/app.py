@@ -46,12 +46,20 @@ def debug_scrape_test():
 
     # Test 2: Carrefour con Playwright
     try:
-        from scrapers.carrefour import scrape as carrefour_scrape
-        url = "https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p"
-        result = carrefour_scrape(url)
-        results["carrefour"] = {"price": result.price, "available": result.available}
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page()
+            page.goto("https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p", timeout=30000)
+            page.wait_for_timeout(3000)
+            html = page.content()
+            browser.close()
+            import re
+            prices = re.findall(r'(\d+[,\.]\d{2})\s*€', html)
+            results["carrefour"] = {"prices_found": prices[:5], "html_length": len(html)}
     except Exception as e:
-        results["carrefour"] = {"error": str(e)}
+        import traceback
+        results["carrefour"] = {"error": str(e), "traceback": traceback.format_exc()}
 
     # Test 3: El Corte Inglés con Playwright
     try:

@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 from scrapers.base import ScrapeResult
 
 def scrape(url: str) -> ScrapeResult:
-    """Scraper para Carrefour usando Firefox headless."""
+    """Scraper para Carrefour usando Firefox headless (Chromium bloqueado por Cloudflare)."""
     time.sleep(random.uniform(2, 4))
     try:
         with sync_playwright() as p:
