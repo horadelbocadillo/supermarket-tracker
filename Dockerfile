@@ -22,5 +22,8 @@ COPY . .
 # Expose port
 EXPOSE 8080
 
+# Railway provides PORT env var
+ENV PORT=8080
+
 # Start command
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
