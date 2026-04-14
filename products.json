@@ -15,7 +15,8 @@
   {"supermarket": "carrefour", "name": "Canonigos", "url": "https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p"},
   {"supermarket": "carrefour", "name": "Mascarilla del pelo de coco", "url": "https://www.carrefour.es/supermercado/mascarilla-capilar-aceite-de-coco-carrefour-soft-300-ml/R-VC4AECOMM-430670/p"},
   {"supermarket": "carrefour", "name": "Pastillas de jabón", "url": "https://www.carrefour.es/supermercado/jabon-de-cara-y-cuerpo-en-pastilla-pieles-sensibles-pure-carrefour-soft-100-g/R-VC4AECOMM-719286/p"},
-  {"supermarket": "carrefour", "name": "Platanos", "url": "https://www.carrefour.es/supermercado/platano-de-canarias-igp-carrefour-900g-aprox/R-VC4AECOMM-779025/p"},
+  {"supermarket": "carrefour", "name": "Platanos", "url":
+        "https://www.carrefour.es/supermercado/platano-carrefour-1-kg-aprox/R-fprod1470254/p},
   {"supermarket": "carrefour", "name": "Guacamole", "url": "https://www.carrefour.es/supermercado/guacamole-carrefour-200-g/R-prod1160715/p"},
 
   {"supermarket": "el_corte_ingles", "name": "Alcachofas congeladas", "url": "https://www.elcorteingles.es/supermercado/B001018915300109-verleal-corazones-de-alcachofas-baby-bolsa-300-g/"},

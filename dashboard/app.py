@@ -44,19 +44,11 @@ def debug_scrape_test():
     except Exception as e:
         results["mercadona"] = {"error": str(e)}
 
-    # Test 2: Carrefour con Playwright
+    # Test 2: Carrefour con scraper real
     try:
-        from playwright.sync_api import sync_playwright
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
-            page.goto("https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p", timeout=30000)
-            page.wait_for_timeout(3000)
-            html = page.content()
-            browser.close()
-            import re
-            prices = re.findall(r'(\d+[,\.]\d{2})\s*€', html)
-            results["carrefour"] = {"prices_found": prices[:5], "html_length": len(html)}
+        from scrapers.carrefour import scrape as carrefour_scrape
+        result = carrefour_scrape("https://www.carrefour.es/supermercado/canonigo-carrefour-el-mercado-200-g/R-521032349/p")
+        results["carrefour"] = {"price": result.price, "available": result.available}
     except Exception as e:
         import traceback
         results["carrefour"] = {"error": str(e), "traceback": traceback.format_exc()}
