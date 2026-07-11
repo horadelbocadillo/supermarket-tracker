@@ -1,0 +1,55 @@
+name: Daily price scrape
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # 08:00 UTC (10:00 en España en verano)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Install Playwright Firefox
+        run: playwright install --with-deps firefox
+
+      - name: Run scrape
+        run: python run_scrape.py
+        env:
+          DB_PATH: data/tracker.db
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      # Aunque el scrape falle a medias (p. ej. Telegram caído), los precios
+      # ya guardados en la BD se conservan committeándola igualmente.
+      - name: Commit price history
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tracker.db
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el histórico"
+          else
+            git commit -m "Update price history ($(date -u +%Y-%m-%d))"
+            git pull --rebase origin master
+            git push origin master
+          fi

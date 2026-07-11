@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime
 from db import init_db, get_all_products, save_price, get_price_history
+from scrapers.base import ScrapeResult
 from scrapers.router import scrape as do_scrape
 from pricing import is_offer
 
@@ -13,7 +14,12 @@ def run_daily_scrape():
     offers = []
 
     for product in products:
-        result = do_scrape(product["supermarket"], product["url"])
+        # Una excepción en un scraper no debe abortar la pasada entera
+        try:
+            result = do_scrape(product["supermarket"], product["url"])
+        except Exception:
+            log.exception("✗ %s → scraper reventó", product["name"])
+            result = ScrapeResult(price=None, available=False)
         if result.price is not None:
             save_price(product["id"], result.price)
             log.info("✓ %s → %.2f€", product["name"], result.price)

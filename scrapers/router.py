@@ -1,9 +1,10 @@
-from scrapers import mercadona, carrefour, lidl, el_corte_ingles, el_jamon
+from scrapers import mercadona, carrefour, dia, lidl, el_corte_ingles, el_jamon
 from scrapers.base import ScrapeResult
 
 _SCRAPERS = {
     "mercadona": mercadona.scrape,
     "carrefour": carrefour.scrape,
+    "dia": dia.scrape,
     "lidl": lidl.scrape,
     "el_corte_ingles": el_corte_ingles.scrape,
     "el_jamon": el_jamon.scrape,

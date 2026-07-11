@@ -26,6 +26,10 @@
   {"supermarket": "el_corte_ingles", "name": "Espinacas congeladas", "url": "https://www.elcorteingles.es/supermercado/B001018919100133-el-corte-ingles-espinacas-cortadas-2-raciones-de-200g-bolsa-400-g/"},
   {"supermarket": "el_corte_ingles", "name": "Huevos gallegos", "url": "https://www.elcorteingles.es/supermercado/B001018840100616-pazo-vilane-huevos-camperos-morenos-estuche-12-unidades-calibres-diferentes/"},
 
+  {"supermarket": "dia", "name": "Yogurt griego de fresa", "url": "https://www.dia.es/yogures-y-postres/yogures-griegos/p/135291"},
+  {"supermarket": "dia", "name": "Canonigos", "url": "https://www.dia.es/verduras/lechugas-y-hojas-verdes/p/105782"},
+  {"supermarket": "dia", "name": "Guacamole", "url": "https://www.dia.es/platos-preparados-y-pizzas/hummus-y-guacamoles/p/289182"},
+
   {"supermarket": "el_jamon", "name": "Detergente de la lavadora", "url": "https://www.supermercadoseljamon.com/detalle/-/Producto/detergente-liquido-gel-activo-42lav/40008400"},
   {"supermarket": "el_jamon", "name": "Desinfectante de la ropa", "url": "https://www.supermercadoseljamon.com/detalle/-/Producto/desinfectante-textil-720ml/40160141"},
   {"supermarket": "el_jamon", "name": "Lejía wc", "url": "https://www.supermercadoseljamon.com/detalle/-/Producto/limpiador-gel-wc-con-lejia-1l/40100224"}

@@ -6,7 +6,7 @@ Web personal que scrapea precios de supermercados, guarda un histórico en SQLit
 
 ## Qué hace
 
-- Scrapea precios diariamente de Mercadona, Carrefour, Lidl, El Corte Inglés y El Jamón
+- Scrapea precios diariamente de Mercadona, Carrefour, Día, Lidl, El Corte Inglés y El Jamón
 - Guarda el histórico en SQLite
 - Detecta ofertas: precio actual < mediana histórica y mínimo de los últimos 30 días
 - Envía un mensaje agrupado por Telegram si hay ofertas
@@ -24,7 +24,7 @@ Web personal que scrapea precios de supermercados, guarda un histórico en SQLit
 | Scheduler | APScheduler |
 | Notificaciones | python-telegram-bot |
 | Frontend | Tailwind CSS + Chart.js (ambos por CDN) |
-| Deploy | Railway |
+| Deploy | GitHub Actions (cron diario, sin servidor) |
 
 ---
 
@@ -38,10 +38,16 @@ supermarket-tracker/
 ├── scheduler.py             # Scraping diario con APScheduler
 ├── seed.py                  # Poblar la BD desde products.json
 ├── products.json            # Lista de productos a rastrear
+├── run_scrape.py            # Entrypoint de GitHub Actions: sync + scrape
+├── data/
+│   └── tracker.db           # Histórico de precios (committeado por el workflow)
+├── .github/workflows/
+│   └── scrape.yml           # Cron diario a las 08:00 UTC
 ├── scrapers/
 │   ├── base.py              # Dataclass ScrapeResult
 │   ├── mercadona.py         # API JSON no oficial
-│   ├── carrefour.py         # API JSON
+│   ├── carrefour.py         # Playwright (Firefox)
+│   ├── dia.py               # httpx + JSON-LD de la página de producto
 │   ├── lidl.py              # Playwright
 │   ├── el_corte_ingles.py   # Playwright
 │   ├── el_jamon.py          # BeautifulSoup
@@ -101,9 +107,9 @@ Edita `products.json` con el formato:
 ]
 ```
 
-Supermercados disponibles: `mercadona`, `carrefour`, `lidl`, `el_corte_ingles`, `el_jamon`
+Supermercados disponibles: `mercadona`, `carrefour`, `dia`, `lidl`, `el_corte_ingles`, `el_jamon`
 
-Después vuelve a ejecutar `python seed.py` para insertar los nuevos productos.
+En GitHub Actions no hace falta nada más: `run_scrape.py` añade automáticamente los productos nuevos de `products.json` a la BD en la siguiente pasada. En local, ejecuta `python seed.py` para poblar la BD desde cero.
 
 ---
 
@@ -116,54 +122,25 @@ pytest -v
 
 ---
 
-## Deploy en Railway
+## Deploy en GitHub Actions
 
-### 1. Subir el repo a GitHub
+No hay servidor: el workflow `.github/workflows/scrape.yml` corre cada día a las **08:00 UTC** (10:00 en España en verano), scrapea todos los productos, envía el aviso de Telegram si hay ofertas y committea el histórico actualizado (`data/tracker.db`) al propio repo.
 
-```bash
-git remote add origin https://github.com/TU_USUARIO/supermarket-tracker.git
-git push -u origin master
-```
+### 1. Secrets del repositorio
 
-### 2. Crear proyecto en Railway
+En GitHub → **Settings → Secrets and variables → Actions → New repository secret**:
 
-1. Ve a **railway.app** → **Start a New Project**
-2. Selecciona **Deploy from GitHub repo**
-3. Autoriza Railway en GitHub si es la primera vez
-4. Busca y selecciona `supermarket-tracker`
-
-### 3. Variables de entorno
-
-En el servicio → pestaña **Variables** → **New Variable**:
-
-| Variable | Valor |
+| Secret | Valor |
 |---|---|
 | `TELEGRAM_TOKEN` | Token de @BotFather |
 | `TELEGRAM_CHAT_ID` | Tu chat ID (consúltalo con @userinfobot) |
-| `DASHBOARD_URL` | URL pública asignada por Railway (Settings → Domains) |
-| `DB_PATH` | `/app/tracker.db` |
 
-### 4. Volumen persistente para SQLite
+### 2. Lanzar una pasada manual
 
-Sin volumen el archivo `.db` se borra en cada redeploy.
+En GitHub → **Actions → Daily price scrape → Run workflow**. Útil para probar sin esperar al cron.
 
-1. En el proyecto → **+ New** → **Volume**
-2. Asígnalo al servicio
-3. **Mount Path**: `/app`
-4. Guarda — Railway redeploya automáticamente
+### Notas
 
-### 5. Poblar la BD y verificar
-
-Una vez desplegado, usa la terminal integrada del servicio en Railway:
-
-```bash
-python seed.py
-```
-
-Para lanzar el scraping sin esperar al cron:
-
-```bash
-python -c "from scheduler import run_daily_scrape; run_daily_scrape()"
-```
-
-El scraping automático corre cada día a las **08:00 UTC**.
+- El histórico vive en `data/tracker.db`, committeado por el workflow tras cada pasada. Para consultarlo en local basta con `git pull`.
+- Si el workflow falla (scrapers rotos, Telegram caído…), GitHub avisa por email. El histórico se committea igualmente con lo que se haya podido scrapear.
+- El dashboard ya no está desplegado, pero funciona en local: `git pull && DB_PATH=data/tracker.db uvicorn main:app --reload`.
