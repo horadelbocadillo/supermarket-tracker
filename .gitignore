@@ -6,3 +6,4 @@ __pycache__/
 .playwright/
 .DS_Store
 .scratch-*
+supermarket_tracker.egg-info/
