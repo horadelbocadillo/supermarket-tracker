@@ -2,7 +2,8 @@ name: Daily price scrape
 
 on:
   schedule:
-    - cron: "0 8 * * *" # 08:00 UTC (10:00 en España en verano)
+    # Minuto impar a propósito: GitHub retrasa/salta los crons del minuto :00
+    - cron: "23 8 * * *" # 08:23 UTC (10:23 en España en verano)
   workflow_dispatch: {}
 
 permissions:

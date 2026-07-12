@@ -124,7 +124,7 @@ pytest -v
 
 ## Deploy en GitHub Actions
 
-No hay servidor: el workflow `.github/workflows/scrape.yml` corre cada día a las **08:00 UTC** (10:00 en España en verano), scrapea todos los productos, envía el aviso de Telegram si hay ofertas y committea el histórico actualizado (`data/tracker.db`) al propio repo.
+No hay servidor: el workflow `.github/workflows/scrape.yml` corre cada día a las **08:23 UTC** (10:23 en España en verano; minuto impar porque GitHub retrasa los crons del minuto :00), scrapea todos los productos, envía el aviso de Telegram si hay ofertas y committea el histórico actualizado (`data/tracker.db`) al propio repo.
 
 ### 1. Secrets del repositorio
 

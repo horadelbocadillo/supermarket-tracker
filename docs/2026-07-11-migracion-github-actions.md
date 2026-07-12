@@ -21,7 +21,7 @@ a un workflow de GitHub Actions que corre en el propio repo:
 
 | Antes (Railway) | Ahora (GitHub Actions) |
 |---|---|
-| Contenedor FastAPI + APScheduler 24/7 | Workflow `.github/workflows/scrape.yml`, cron `0 8 * * *` (08:00 UTC = 10:00 España en verano) |
+| Contenedor FastAPI + APScheduler 24/7 | Workflow `.github/workflows/scrape.yml`, cron `23 8 * * *` (08:23 UTC = 10:23 España en verano) |
 | BD en volumen persistente `/data/tracker.db` | BD en `data/tracker.db`, **committeada al repo** tras cada pasada |
 | Coste: crédito de prueba, luego ~$5/mes | Gratis (repo público, minutos de Actions ilimitados) |
 | Dashboard web siempre disponible | Dashboard solo en local: `DB_PATH=data/tracker.db uvicorn main:app --reload` |
@@ -87,3 +87,6 @@ El workflow committeó `data/tracker.db` correctamente al terminar.
 - Pendiente: revisar los 4 productos de ECI que fallan y el scraper de El Jamón.
 - El clon de trabajo en `Documents/2. la compra/supermarket-tracker` se consulta con
   `git pull` (el workflow genera un commit de histórico al día).
+- 12 de julio: el primer cron programado (`0 8 * * *`) no llegó a ejecutarse — GitHub
+  retrasa o salta los crons del minuto :00 por congestión. Se movió a `23 8 * * *`
+  (08:23 UTC) y la pasada de ese día se lanzó a mano para no perder el histórico.

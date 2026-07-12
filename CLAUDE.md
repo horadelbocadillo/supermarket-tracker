@@ -2,7 +2,7 @@
 
 ## Repositorios y Deploy
 - **GitHub**: https://github.com/horadelbocadillo/supermarket-tracker
-- **Deploy**: GitHub Actions (`.github/workflows/scrape.yml`), cron diario a las 08:00 UTC. Sin servidor — Railway se abandonó en julio 2026 al acabar el trial.
+- **Deploy**: GitHub Actions (`.github/workflows/scrape.yml`), cron diario a las 08:23 UTC. Sin servidor — Railway se abandonó en julio 2026 al acabar el trial.
 - **Rama principal**: master
 
 ## Credenciales y Configuración
@@ -48,7 +48,7 @@
 - En Actions lo instala el propio workflow (`playwright install --with-deps firefox`)
 
 ## Ejecución diaria (GitHub Actions)
-- Workflow `.github/workflows/scrape.yml`, cron a las **08:00 UTC** (10:00 España en verano)
+- Workflow `.github/workflows/scrape.yml`, cron a las **08:23 UTC** (10:23 España en verano; minuto impar porque GitHub retrasa/salta los crons del minuto :00)
 - Entrypoint: `run_scrape.py` — sincroniza productos nuevos de `products.json` a la BD y llama a `run_daily_scrape()`
 - Cada scraper va envuelto en try/except: si uno revienta, la pasada continúa
 - Al final el workflow committea `data/tracker.db` al repo (paso con `if: always()`, así el histórico no se pierde aunque falle Telegram)
