@@ -2,6 +2,7 @@
 
 ## Repositorios y Deploy
 - **GitHub**: https://github.com/horadelbocadillo/supermarket-tracker
+- **Tablero**: https://github.com/users/horadelbocadillo/projects/4 (La Compra — Supermarket Tracker)
 - **Deploy**: GitHub Actions (`.github/workflows/scrape.yml`), cron diario a las 08:23 UTC. Sin servidor — Railway se abandonó en julio 2026 al acabar el trial.
 - **Rama principal**: master
 
