@@ -89,4 +89,9 @@ python -c "from bot.telegram import send_offers; send_offers([{'name': 'Test', '
 - Si Carrefour/ECI fallan con "Access Denied", verificar que Firefox esté instalado
 - Si Telegram da "Chat not found", el usuario debe iniciar conversación con el bot primero
 - Los precios de 30€ en Carrefour son errores de la web (productos sin stock o promociones)
+- Si el run muere nada más empezar con "Falta configuración de Telegram", el secret
+  correspondiente no existe en el repo: `gh secret set TELEGRAM_TOKEN`. Comprobar con
+  `gh secret list`. Es un fallo intermitente por naturaleza: solo revienta los días en
+  que hay oferta que notificar, así que en el historial de Actions se ve en zigzag
+- Para probar scrapers en local sin configurar Telegram: `SKIP_TELEGRAM=1 python run_scrape.py`
 - El aviso de Telegram solo salta con ≥7 días de histórico y precio en mínimo de 30 días por debajo de la mediana — silencio prolongado puede ser normal

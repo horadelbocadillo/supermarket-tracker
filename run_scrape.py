@@ -34,7 +34,27 @@ def sync_products():
             print(f"  + [{p['supermarket']}] {p['name']}")
 
 
+def check_notification_config():
+    """Falla antes de scrapear si falta la configuración de Telegram.
+
+    Una pasada que recoge precios pero no puede avisar no sirve de nada, y
+    enterarse tras cinco minutos de scraping hace el fallo difícil de leer.
+    Para probar scrapers sin avisos: SKIP_TELEGRAM=1 python run_scrape.py
+    """
+    if os.getenv("SKIP_TELEGRAM"):
+        return
+    missing = [v for v in ("TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID") if not os.getenv(v)]
+    if missing:
+        raise SystemExit(
+            f"Falta configuración de Telegram: {', '.join(missing)}\n"
+            "  En GitHub Actions son secrets del repo:  gh secret set TELEGRAM_TOKEN\n"
+            "  En local van en un fichero .env          (ver .env.example)\n"
+            "  Para probar scrapers sin avisos:         SKIP_TELEGRAM=1 python run_scrape.py"
+        )
+
+
 if __name__ == "__main__":
+    check_notification_config()
     init_db()
     sync_products()
     run_daily_scrape()
