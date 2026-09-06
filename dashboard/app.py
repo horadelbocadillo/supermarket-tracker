@@ -27,7 +27,7 @@ def index(request: Request):
     from itertools import groupby
     items.sort(key=lambda x: x["supermarket"])
     grouped = {k: list(v) for k, v in groupby(items, key=lambda x: x["supermarket"])}
-    return templates.TemplateResponse("index.html", {"request": request, "grouped": grouped})
+    return templates.TemplateResponse(request, "index.html", {"grouped": grouped})
 
 @app.get("/debug/scrape-test")
 def debug_scrape_test():
@@ -73,7 +73,7 @@ def detail(request: Request, product_id: int):
     from pricing import compute_median
     prices = [h["price"] for h in history if h["price"]]
     median_val = compute_median(prices) if prices else None
-    return templates.TemplateResponse("detail.html", {
-        "request": request, "product": product,
+    return templates.TemplateResponse(request, "detail.html", {
+        "product": product,
         "history": history, "median": median_val
     })
