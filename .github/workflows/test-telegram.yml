@@ -1,0 +1,31 @@
+# Comprobación manual del camino de notificación. Solo se lanza a mano:
+# Actions → Test Telegram notification → Run workflow.
+name: Test Telegram notification
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      # No instala Firefox a propósito: esto no scrapea, solo lee la BD
+      # versionada y envía. Así la comprobación tarda segundos.
+      - name: Send current prices
+        run: python send_test_notification.py
+        env:
+          DB_PATH: data/tracker.db
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
