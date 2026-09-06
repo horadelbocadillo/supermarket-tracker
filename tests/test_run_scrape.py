@@ -1,23 +1,23 @@
 import pytest
-from run_scrape import check_notification_config
+from run_scrape import missing_notification_config
 
 @pytest.fixture(autouse=True)
 def clean_env(monkeypatch):
     for v in ("TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID", "SKIP_TELEGRAM"):
         monkeypatch.delenv(v, raising=False)
 
-def test_falla_si_falta_el_token(monkeypatch):
+def test_detecta_el_token_que_falta(monkeypatch):
     monkeypatch.setenv("TELEGRAM_CHAT_ID", "123")
-    with pytest.raises(SystemExit) as e:
-        check_notification_config()
-    assert "TELEGRAM_TOKEN" in str(e.value)
-    assert "TELEGRAM_CHAT_ID" not in str(e.value).split("\n")[0]
+    assert missing_notification_config() == ["TELEGRAM_TOKEN"]
 
-def test_pasa_con_ambos_configurados(monkeypatch):
+def test_sin_nada_configurado_faltan_las_dos():
+    assert missing_notification_config() == ["TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID"]
+
+def test_no_falta_nada_con_ambos_configurados(monkeypatch):
     monkeypatch.setenv("TELEGRAM_TOKEN", "abc")
     monkeypatch.setenv("TELEGRAM_CHAT_ID", "123")
-    check_notification_config()
+    assert missing_notification_config() == []
 
 def test_skip_telegram_permite_probar_scrapers(monkeypatch):
     monkeypatch.setenv("SKIP_TELEGRAM", "1")
-    check_notification_config()
+    assert missing_notification_config() == []

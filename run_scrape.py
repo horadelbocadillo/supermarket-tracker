@@ -34,27 +34,41 @@ def sync_products():
             print(f"  + [{p['supermarket']}] {p['name']}")
 
 
-def check_notification_config():
-    """Falla antes de scrapear si falta la configuración de Telegram.
+def missing_notification_config():
+    """Devuelve las variables de Telegram que faltan, o lista vacía.
 
-    Una pasada que recoge precios pero no puede avisar no sirve de nada, y
-    enterarse tras cinco minutos de scraping hace el fallo difícil de leer.
-    Para probar scrapers sin avisos: SKIP_TELEGRAM=1 python run_scrape.py
+    No aborta la pasada: el histórico de precios es lo irreemplazable y hay
+    que recogerlo aunque hoy no se pueda avisar. El proceso termina en rojo
+    al final, pero con los precios ya guardados.
+    Para silenciarlo en pruebas locales: SKIP_TELEGRAM=1 python run_scrape.py
     """
     if os.getenv("SKIP_TELEGRAM"):
-        return
-    missing = [v for v in ("TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID") if not os.getenv(v)]
-    if missing:
-        raise SystemExit(
-            f"Falta configuración de Telegram: {', '.join(missing)}\n"
-            "  En GitHub Actions son secrets del repo:  gh secret set TELEGRAM_TOKEN\n"
-            "  En local van en un fichero .env          (ver .env.example)\n"
-            "  Para probar scrapers sin avisos:         SKIP_TELEGRAM=1 python run_scrape.py"
-        )
+        return []
+    return [v for v in ("TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID") if not os.getenv(v)]
+
+
+def warn_missing_config(missing):
+    print(
+        f"AVISO: falta configuración de Telegram: {', '.join(missing)}\n"
+        "  Los precios se recogerán igualmente, pero hoy no saldrá ningún aviso\n"
+        "  y esta pasada terminará en rojo.\n"
+        "  En GitHub Actions son secrets del repo:  gh secret set TELEGRAM_TOKEN\n"
+        "  En local van en un fichero .env          (ver .env.example)\n"
+        "  Para probar scrapers sin avisos:         SKIP_TELEGRAM=1 python run_scrape.py\n",
+        flush=True,
+    )
 
 
 if __name__ == "__main__":
-    check_notification_config()
+    missing = missing_notification_config()
+    if missing:
+        warn_missing_config(missing)
+
     init_db()
     sync_products()
     run_daily_scrape()
+
+    if missing:
+        raise SystemExit(
+            f"Pasada terminada y precios guardados, pero sin avisar: falta {', '.join(missing)}"
+        )
